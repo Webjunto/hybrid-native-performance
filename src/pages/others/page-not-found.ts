@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
-  selector: 'page-item',
-  templateUrl: 'item.html',
+  selector: 'page-not-found',
+  templateUrl: 'page-not-found.html',
 })
-export class ItemPage {
+export class PageNotFound {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ItemPage');
+    console.log('ionViewDidLoad OthersPage');
   }
 
 }
