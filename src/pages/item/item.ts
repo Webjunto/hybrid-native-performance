@@ -34,14 +34,14 @@ export class ItemPage {
     window.console.log(item);
     if (!item.id) {
       item.listId = this.selectedList.id;
-      item.id = this.items.length + 1;
+      item.id = +(new Date());
       item.status = false;
-      this.items.push(item);
+      this.allItems.push(item);
     } else {
-      const itemIndex = _.findIndex(this.items, ['id', item.id]);
-      this.items.splice(itemIndex, 1, item);
+      const itemIndex = _.findIndex(this.allItems, ['id', item.id]);
+      this.allItems.splice(itemIndex, 1, item);
     }
-    window.localStorage.setItem('items', JSON.stringify(this.items));
+    window.localStorage.setItem('items', JSON.stringify(this.allItems));
     this.navCtrl.push(ItemsPage);
   }
 

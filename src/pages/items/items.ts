@@ -37,6 +37,7 @@ export class ItemsPage {
   }
 
   addItem() {
+    window.localStorage.removeItem('selectedItem');
     this.navCtrl.push(ItemPage);
   }
   changeStatusOfItem(item) {

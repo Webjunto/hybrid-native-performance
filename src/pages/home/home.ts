@@ -12,7 +12,13 @@ export class HomePage {
   public lists = [];
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
-    this.lists = JSON.parse(window.localStorage.getItem('lists')) || [];
+    let initList = [
+      { id: 1, name: 'Home', bgColor: '#9147A7' },
+      { id: 2, name: 'GA', bgColor: '#00A087' },
+      { id: 3, name: 'Doggy doggy', bgColor: '#9147A7' }
+    ]
+    this.lists = JSON.parse(window.localStorage.getItem('lists')) || initList;
+    window.localStorage.setItem('lists', JSON.stringify(this.lists));
   }
 
   ionViewDidLoad() {
@@ -39,7 +45,7 @@ export class HomePage {
         {
           text: 'Save',
           handler: data => {
-            this.lists.push({ id: this.lists.length + 1, name: data.name, bgColor: (this.lists.length % 2 === 0) ? '#9147A7' : '#00A087' });
+            this.lists.push({ id: +(new Date()), name: data.name, bgColor: (this.lists.length % 2 === 0) ? '#9147A7' : '#00A087' });
             window.localStorage.setItem('lists', JSON.stringify(this.lists));
           }
         }
