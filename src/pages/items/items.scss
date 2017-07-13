@@ -2,4 +2,9 @@ page-items {
   .toolbar-ios, .scroll-content, .grid, .col {
     padding: 0 !important;
   }
+
+  .item .icon.ios-arrow-forward {
+    font-size: 26px;
+    color:lightgray;
+  }
 }

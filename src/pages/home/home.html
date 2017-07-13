@@ -18,7 +18,7 @@
   <ion-list>
     <div *ngIf="lists.length > 0">
       <ion-item *ngFor="let listItem of lists" (click)="openList(listItem)" [style.backgroundColor]="listItem.bgColor">
-        {{ listItem.name }}
+        🏠&nbsp;&nbsp;{{ listItem.name }}
         <ion-icon name="ios-arrow-forward" item-end></ion-icon>
       </ion-item>
     </div>

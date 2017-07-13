@@ -4,24 +4,33 @@
       <ion-buttons start>
         <button ion-button color="royal" (click)="cancelItem(item)">Cancel</button>
       </ion-buttons>
-      <ion-title>Item</ion-title>
+      <ion-title>Edit Item</ion-title>
       <ion-buttons end>
-        <button ion-button color="royal" (click)="saveItem(item)">Save</button>
+        <button ion-button color="royal" (click)="saveItem(item)"><b>Save</b></button>
       </ion-buttons>
     </ion-toolbar>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding style="background-color:#f4f4f4;">
   <ion-list>
+
+     <ion-item-divider color="light">NEW TO-DO DETAILS</ion-item-divider>
+
     <ion-item>
       <ion-label fixed>To-Do</ion-label>
-      <ion-input type="text" [(ngModel)]="item.name" placeholder="Enter your To-Do item"></ion-input>
+      <ion-input type="text" [(ngModel)]="item.name" placeholder="Enter your to-do item"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label fixed>Description</ion-label>
-      <ion-input type="text" [(ngModel)]="item.description" placeholder="Enter Description"></ion-input>
+      <ion-label stacked>Description</ion-label>
+      <!-- <textarea [(ngModel)]="item.description" placeholder="Enter Description"></textarea> -->
+      <ion-input
+      type="text"
+      [(ngModel)]="item.description"
+      placeholder="Enter item description"
+      style="margin-bottom:100px;"></ion-input>
     </ion-item>
+    <!-- <textarea [(ngModel)]="item.description" placeholder="Enter Description"></textarea> -->
   </ion-list>
 </ion-content>
