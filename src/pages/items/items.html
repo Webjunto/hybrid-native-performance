@@ -1,5 +1,8 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button color="royal" (click)="cancelItem(item)">Back</button>
+    </ion-buttons>
     <ion-title>items</ion-title>
     <ion-buttons end>
       <button ion-button icon-only color="royal" (click)="addItem()">
@@ -12,9 +15,14 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let item of items" (click)="openItem(item)">
-      {{ item.name }}
-      <ion-icon name="ios-arrow-forward" item-end></ion-icon>
-    </ion-item>
+    <div *ngIf="items.length > 0">
+      <ion-item *ngFor="let item of items">
+        <ion-icon name="checkmark-circle" item-start *ngIf="item.status" (click)="changeStatusOfItem(item)"></ion-icon>
+        <ion-icon name="radio-button-off" item-start *ngIf="!item.status" (click)="changeStatusOfItem(item)"></ion-icon>
+        <span>{{ item.name }}</span>
+        <ion-icon name="ios-arrow-forward" item-end (click)="openItem(item)"></ion-icon>
+      </ion-item>
+    </div>
+    <ion-item *ngIf="items.length === 0">No items exists, please click + to add an item</ion-item>
   </ion-list>
 </ion-content>

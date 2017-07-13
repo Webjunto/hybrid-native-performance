@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar hideBackButton="true">
     <ion-toolbar>
       <ion-buttons start>
         <button ion-button color="royal">Edit</button>
@@ -16,9 +16,12 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let listItem of lists" (click)="openList(listItem)">
-      {{ listItem.name }}
-      <ion-icon name="ios-arrow-forward" item-end></ion-icon>
-    </ion-item>
+    <div *ngIf="lists.length > 0">
+      <ion-item *ngFor="let listItem of lists" (click)="openList(listItem)">
+        {{ listItem.name }}
+        <ion-icon name="ios-arrow-forward" item-end></ion-icon>
+      </ion-item>
+    </div>
+    <ion-item *ngIf="lists.length === 0">No lists exists, please click + to add a list</ion-item>
   </ion-list>
 </ion-content>

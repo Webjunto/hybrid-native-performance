@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar hideBackButton="true">
     <ion-toolbar>
       <ion-buttons start>
-        <button ion-button color="royal">Cancel</button>
+        <button ion-button color="royal" (click)="cancelItem(item)">Cancel</button>
       </ion-buttons>
       <ion-title>Item</ion-title>
       <ion-buttons end>
-        <button ion-button color="royal">Save</button>
+        <button ion-button color="royal" (click)="saveItem(item)">Save</button>
       </ion-buttons>
     </ion-toolbar>
   </ion-navbar>
@@ -17,11 +17,11 @@
   <ion-list>
     <ion-item>
       <ion-label fixed>To-Do</ion-label>
-      <ion-input type="text" value=""></ion-input>
+      <ion-input type="text" [(ngModel)]="item.name"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>Description</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="item.description"></ion-input>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 import { ItemsPage } from '../items/items';
 
@@ -10,19 +11,40 @@ import { ItemsPage } from '../items/items';
 export class HomePage {
   public lists = [];
 
-  constructor(public navCtrl: NavController) {
-    this.lists = [
-      { "name": "list 1", "tasks": [] },
-      { "name": "list 2", "tasks": [] }
-    ];
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
+    this.lists = JSON.parse(window.localStorage.getItem('lists')) || [];
   }
 
-  addListItem() {
-    this.lists.push({ "name": `item ${this.lists.length + 1}`, "tasks": [] });
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad HomePage');
   }
 
   openList(listItem) {
-    window.console.log(listItem);
+    window.localStorage.setItem('selectedList', JSON.stringify(listItem));
     this.navCtrl.push(ItemsPage);
+  }
+
+  addListItem() {
+    let prompt = this.alertCtrl.create({
+      title: 'New List',
+      message: "Enter name of the new list",
+      inputs: [{ name: 'name', placeholder: 'Title' },],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            this.lists.push({ id: this.lists.length + 1, name: data.name, items: [] });
+            window.localStorage.setItem('lists', JSON.stringify(this.lists));
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 }
