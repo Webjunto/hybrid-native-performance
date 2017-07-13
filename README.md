@@ -1,26 +1,28 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+# An example of Hybrid and Native (Side by Side) comparison application
 
-## How to use this template
+## About the app
+This repository is a comparison project that compares an Ionic Application to a Native (Swift 3.0 Xcode-beta6) application.  The purpose is to show that for most applications; performance difference is almost identical.
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+The majority of performance hits on applications come from
+* Large network requests
+* Lack of lazy-loading
+* Non-optimized graphics
+* Network, network, network.
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
+## To run
 
-### With the Ionic CLI:
-
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
-
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start myBlank blank
+In ionic, simply run
+```
+npm install
+ionic serve -lcc
 ```
 
-Then, to run it, cd into `myBlank` and run:
+In native, open the project via xcode.
 
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
-```
+## Credit
 
-Substitute ios for android if not on a Mac.
+We based our Ionic Application off of lorismaz's Todo list native app.  It is simple enough to easily reproduce, so we built our own (identical) version in Ionic.  We are copying it here as we will be making edits and evolving the application for more performance showcase enhancements.
 
+https://github.com/lorismaz/ToutDoux
+
+Thank you Lorismaz :)
