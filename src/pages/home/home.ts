@@ -39,7 +39,7 @@ export class HomePage {
         {
           text: 'Save',
           handler: data => {
-            this.lists.push({ id: this.lists.length + 1, name: data.name, items: [] });
+            this.lists.push({ id: this.lists.length + 1, name: data.name, bgColor: (this.lists.length % 2 === 0) ? '#9147A7' : '#00A087' });
             window.localStorage.setItem('lists', JSON.stringify(this.lists));
           }
         }
