@@ -1,0 +1,15 @@
+page-item {
+  .toolbar-ios, .scroll-content {
+    padding: 0 !important;
+  }
+
+  .item-divider {
+    font-size: 0.9em;
+    color: #2e2e2e;
+    margin-top: 30px;
+  }
+
+  .label[stacked] {
+    font-size: 1.7rem;
+  }
+}

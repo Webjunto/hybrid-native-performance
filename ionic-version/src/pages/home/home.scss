@@ -1,0 +1,26 @@
+page-home {
+  .toolbar-ios, .scroll-content {
+    padding: 0 !important;
+  }
+  .item {
+    line-height: 48px;
+    color: #fff;
+    font-size: 45px;
+    font-weight: 400;
+    height: 125px;
+
+    .icon.ios-arrow-forward {
+      font-size: 26px;
+      color:lightgray;
+    }
+
+    .label {
+      margin-top: 0;
+      overflow: visible;
+    }
+
+    &:first-of-type {
+      background-color: #e4c12d;
+    }
+  }
+}

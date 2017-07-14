@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button color="royal" (click)="cancelItem(item)">Back</button>
+    </ion-buttons>
+    <ion-title>List</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="addItem()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+<<<<<<< HEAD:src/pages/items/items.html
+  <ion-grid *ngIf="actualCount > 0">
+    <ion-row>
+      <ion-col col-4><button ion-button block outline small (click)="filterItems(false)">To Do</button></ion-col>
+      <ion-col col-4><button ion-button block outline small (click)="filterItems(null)">All</button></ion-col>
+      <ion-col col-4><button ion-button block outline small (click)="filterItems(true)">Done</button></ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+=======
+
+    <ion-segment *ngIf="actualCount > 0">
+      <ion-segment-button (click)="filterItems(false)">
+        To Do
+      </ion-segment-button>
+    <ion-segment-button (click)="filterItems()">
+      All
+    </ion-segment-button>
+    <ion-segment-button (click)="filterItems(true)">
+      Done
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-list style="margin-top:1px;">
+>>>>>>> d38577855c9100b366e6d66e79f09a703cc3cf46:ionic-version/src/pages/items/items.html
+    <div *ngIf="items.length > 0">
+
+
+      <ion-item *ngFor="let item of items">
+        <ion-icon name="checkmark-circle" item-start *ngIf="item.status" (click)="changeStatusOfItem(item)"></ion-icon>
+        <ion-icon name="radio-button-off" item-start *ngIf="!item.status" (click)="changeStatusOfItem(item)"></ion-icon>
+        <span>{{ item.name }}</span>
+        <ion-icon name="ios-arrow-forward" item-end (click)="openItem(item)"></ion-icon>
+      </ion-item>
+
+    </div>
+
+    <ion-item *ngIf="items.length === 0 && actualCount === 0">No items exists, please click + to add an item</ion-item>
+    <ion-item *ngIf="items.length === 0 && actualCount > 0">No items exists for this filter</ion-item>
+  </ion-list>
+</ion-content>
