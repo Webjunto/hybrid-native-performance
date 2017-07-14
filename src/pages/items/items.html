@@ -17,7 +17,7 @@
   <ion-grid *ngIf="actualCount > 0">
     <ion-row>
       <ion-col col-4><button ion-button block outline small (click)="filterItems(false)">To Do</button></ion-col>
-      <ion-col col-4><button ion-button block outline small (click)="filterItems()">All</button></ion-col>
+      <ion-col col-4><button ion-button block outline small (click)="filterItems(null)">All</button></ion-col>
       <ion-col col-4><button ion-button block outline small (click)="filterItems(true)">Done</button></ion-col>
     </ion-row>
   </ion-grid>

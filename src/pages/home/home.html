@@ -2,7 +2,10 @@
   <ion-navbar hideBackButton="true">
     <ion-toolbar>
       <ion-buttons start>
-        <button ion-button color="royal" disabled>Edit</button>
+        <button ion-button color="royal" (click)="toggleReorder()">
+          <span *ngIf="!reOrder">Edit</span>
+          <span *ngIf="reOrder">Done</span>
+        </button>
       </ion-buttons>
       <ion-title>To Do Lists</ion-title>
       <ion-buttons end>
@@ -17,10 +20,12 @@
 <ion-content padding>
   <ion-list>
     <div *ngIf="lists.length > 0">
-      <ion-item *ngFor="let listItem of lists" (click)="openList(listItem)" [style.backgroundColor]="listItem.bgColor">
-        {{ listItem.name }}
-        <ion-icon name="ios-arrow-forward" item-end></ion-icon>
-      </ion-item>
+      <ion-item-group reorder="{{reOrder}}" (ionItemReorder)="reorderItems($event)">
+        <ion-item *ngFor="let listItem of lists" (click)="openList(listItem)" [style.backgroundColor]="listItem.bgColor">
+          {{ listItem.name }}
+          <ion-icon name="ios-arrow-forward" item-end></ion-icon>
+        </ion-item>
+      </ion-item-group>
     </div>
     <ion-item *ngIf="lists.length === 0">No lists exists, please click + to add a list</ion-item>
   </ion-list>

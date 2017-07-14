@@ -13,6 +13,7 @@ export class ItemsPage {
   public allItems = [];
   public items = [];
   public actualCount = 0;
+  public filterType = null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.selectedList = JSON.parse(window.localStorage.getItem('selectedList')) || null;
@@ -48,6 +49,7 @@ export class ItemsPage {
   }
 
   filterItems(status) {
+    this.filterType = status;
     if (status === true) {
       this.items = _.filter(this.allItems, { 'listId': this.selectedList.id, status: true });
     } else if (status === false) {

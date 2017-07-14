@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { reorderArray } from 'ionic-angular';
 
 import { ItemsPage } from '../items/items';
 
@@ -10,6 +11,7 @@ import { ItemsPage } from '../items/items';
 })
 export class HomePage {
   public lists = [];
+  public reOrder = false;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
     let initList = [
@@ -24,11 +26,19 @@ export class HomePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
   }
-
+  toggleReorder() {
+    this.reOrder = !this.reOrder;
+  }
   openList(listItem) {
     window.localStorage.setItem('selectedList', JSON.stringify(listItem));
     this.navCtrl.push(ItemsPage);
   }
+
+  reorderItems(indexes) {
+    this.lists = reorderArray(this.lists, indexes);
+    window.console.log('this.lists', this.lists);
+    window.localStorage.setItem('lists', JSON.stringify(this.lists));
+  };
 
   addListItem() {
     let prompt = this.alertCtrl.create({
