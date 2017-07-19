@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { reorderArray } from 'ionic-angular';
+import { Store } from '@ngrx/store';
 
 import { ItemsPage } from '../items/items';
 
@@ -13,14 +14,13 @@ export class HomePage {
   public lists = [];
   public reOrder = false;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public store: Store<any>) {
     let initList = [
       { id: 1, name: 'Home', bgColor: '#9147A7' },
       { id: 2, name: 'GA', bgColor: '#9147A7' },
       { id: 3, name: 'Doggy doggy', bgColor: '#b9521e' }
     ]
     this.lists = JSON.parse(window.localStorage.getItem('lists')) || initList;
-    window.localStorage.setItem('lists', JSON.stringify(this.lists));
   }
 
   ionViewDidLoad() {
@@ -55,8 +55,14 @@ export class HomePage {
         {
           text: 'Save',
           handler: data => {
-            this.lists.push({ id: +(new Date()), name: data.name, bgColor: (this.lists.length % 2 === 0) ? '#9147A7' : '#00A087' });
-            window.localStorage.setItem('lists', JSON.stringify(this.lists));
+            if (data && data.name) {
+              let newList = { id: +(new Date()), name: data.name, bgColor: (this.lists.length % 2 === 0) ? '#9147A7' : '#00A087' };
+              this.lists.push(newList);
+              this.store.dispatch({ type: 'ADD_LIST', payload: newList });
+            } else {
+              window.alert('Please enter name of the list');
+              return false;
+            }
           }
         }
       ]

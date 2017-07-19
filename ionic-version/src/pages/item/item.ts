@@ -31,18 +31,21 @@ export class ItemPage {
   }
 
   saveItem(item) {
-    window.console.log(item);
-    if (!item.id) {
-      item.listId = this.selectedList.id;
-      item.id = +(new Date());
-      item.status = false;
-      this.allItems.push(item);
+    if (item.name && item.description) {
+      if (!item.id) {
+        item.listId = this.selectedList.id;
+        item.id = +(new Date());
+        item.status = false;
+        this.allItems.push(item);
+      } else {
+        const itemIndex = _.findIndex(this.allItems, ['id', item.id]);
+        this.allItems.splice(itemIndex, 1, item);
+      }
+      window.localStorage.setItem('items', JSON.stringify(this.allItems));
+      this.navCtrl.push(ItemsPage);
     } else {
-      const itemIndex = _.findIndex(this.allItems, ['id', item.id]);
-      this.allItems.splice(itemIndex, 1, item);
+      window.alert('Please enter name and description');
     }
-    window.localStorage.setItem('items', JSON.stringify(this.allItems));
-    this.navCtrl.push(ItemsPage);
   }
 
 }
