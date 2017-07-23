@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Store } from '@ngrx/store';
+
 import { ItemsPage } from '../items/items';
+import { ListsStore, ItemsStore } from '../../store/model';
 import _ from 'lodash';
 
 @Component({
@@ -8,15 +11,19 @@ import _ from 'lodash';
   templateUrl: 'item.html',
 })
 export class ItemPage {
-  public selectedList = { id: '' };
-  public allItems = [];
-  public items = [];
+  public selectedList: any;
+  public allItems: any;
+  public items: any;
   public item = { listId: '', id: '', name: '', description: '' };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public listsStore: Store<ListsStore>, public itemsStore: Store<ItemsStore>) {
+    itemsStore.select('itemsReducer')
+      .subscribe(data => {
+        this.allItems = data;
+      });
     this.selectedList = JSON.parse(window.localStorage.getItem('selectedList')) || null;
     this.item = JSON.parse(window.localStorage.getItem('selectedItem')) || this.item;
-    this.allItems = JSON.parse(window.localStorage.getItem('items')) || [];
+    // this.allItems = JSON.parse(window.localStorage.getItem('items')) || [];
     if (this.selectedList && this.selectedList.id) {
       this.items = _.filter(this.allItems, ['listId', this.selectedList.id]);
     }
@@ -36,12 +43,10 @@ export class ItemPage {
         item.listId = this.selectedList.id;
         item.id = +(new Date());
         item.status = false;
-        this.allItems.push(item);
+        this.listsStore.dispatch({ type: 'ADD_TASK', payload: item });
       } else {
-        const itemIndex = _.findIndex(this.allItems, ['id', item.id]);
-        this.allItems.splice(itemIndex, 1, item);
+        this.listsStore.dispatch({ type: 'UPDATE_TASK', payload: item });
       }
-      window.localStorage.setItem('items', JSON.stringify(this.allItems));
       this.navCtrl.push(ItemsPage);
     } else {
       window.alert('Please enter name and description');

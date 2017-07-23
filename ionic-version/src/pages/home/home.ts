@@ -4,6 +4,7 @@ import { AlertController } from 'ionic-angular';
 import { reorderArray } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 
+import { ListsStore, ItemsStore } from '../../store/model';
 import { ItemsPage } from '../items/items';
 
 @Component({
@@ -11,16 +12,14 @@ import { ItemsPage } from '../items/items';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public lists = [];
+  public lists: any;
   public reOrder = false;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public store: Store<any>) {
-    let initList = [
-      { id: 1, name: 'Home', bgColor: '#9147A7' },
-      { id: 2, name: 'GA', bgColor: '#9147A7' },
-      { id: 3, name: 'Doggy doggy', bgColor: '#b9521e' }
-    ]
-    this.lists = JSON.parse(window.localStorage.getItem('lists')) || initList;
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public listsStore: Store<ListsStore>, public itemsStore: Store<ItemsStore>) {
+    listsStore.select('listsReducer')
+      .subscribe(data => {
+        this.lists = data;
+      });
   }
 
   ionViewDidLoad() {
@@ -37,7 +36,7 @@ export class HomePage {
   reorderItems(indexes) {
     this.lists = reorderArray(this.lists, indexes);
     window.console.log('this.lists', this.lists);
-    window.localStorage.setItem('lists', JSON.stringify(this.lists));
+    this.listsStore.dispatch({ type: 'SORT_LIST', payload: this.lists });
   };
 
   addListItem() {
@@ -58,7 +57,7 @@ export class HomePage {
             if (data && data.name) {
               let newList = { id: +(new Date()), name: data.name, bgColor: (this.lists.length % 2 === 0) ? '#9147A7' : '#00A087' };
               this.lists.push(newList);
-              this.store.dispatch({ type: 'ADD_LIST', payload: newList });
+              this.listsStore.dispatch({ type: 'ADD_LIST', payload: newList });
             } else {
               window.alert('Please enter name of the list');
               return false;
